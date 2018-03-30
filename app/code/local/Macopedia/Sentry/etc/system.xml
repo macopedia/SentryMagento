@@ -35,7 +35,7 @@
                         <app_url>
                             <label>Application URL</label>
                             <frontend_type>text</frontend_type>
-                            <comment><![CDATA[URL from your config: <script>Raven.config('{{YOU URL}}').install();</script>]]></comment>
+                            <comment><![CDATA[URL from your config: "Raven.config('{{YOUR URL}}').install();"]]></comment>
                             <sort_order>20</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
