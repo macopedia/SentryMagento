@@ -1,7 +1,7 @@
 # SentryMagento
 Magento 1.9 module for Sentry JavaScript errors tracking
 
-#Installation
+# Installation
 1. Create Sentry account: https://sentry.io/signup/
 2. Go to documentation: https://docs.sentry.io/clients/javascript/install/
 3. Copy you application URL (placed in Raven.config) ![alt text](https://raw.githubusercontent.com/macopedia/SentryMagento/master/readme/images/sentry-config.png)
