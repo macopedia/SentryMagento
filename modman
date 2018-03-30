@@ -1,0 +1,4 @@
+app/code/local/Macopedia/Sentry     app/code/local/Macopedia/Sentry
+app/etc/modules/*    app/etc/modules/
+app/design/frontend/base/default/template/macopedia/sentry app/design/frontend/base/default/template/macopedia/sentry/
+app/design/frontend/base/default/layout/macopedia/sentry.xml app/design/frontend/base/default/layout/macopedia/sentry.xml

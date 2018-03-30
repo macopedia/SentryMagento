@@ -1,0 +1,21 @@
+{
+  "name": "macopedia/sentry-magento",
+  "type": "magento-module",
+  "description": "Magento 1.9 module for Sentry JavaScript errors tracking",
+  "require": {
+    "magento-hackathon/magento-composer-installer": "*"
+  },
+  "authors":[
+    {
+      "name": "Macopedia"
+    }
+  ],
+  "extra": {
+    "map" : [
+      ["app/etc/modules/Macopedia_Sentry.xml", "app/etc/modules/Macopedia_Sentry.xml"],
+      ["app/code/local/Macopedia/Sentry", "app/code/local/Macopedia/Sentry"],
+      ["app/design/adminhtml/base/default/template/macopedia/sentry", "app/design/adminhtml/default/default/template/macopedia/sentry"],
+      ["app/design/frontend/base/default/layout/macopedia/sentry.xml", "app/design/frontend/base/default/layout/macopedia/sentry.xml"]
+    ]
+  }
+}

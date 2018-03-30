@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Macopedia_Sentry>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends></depends>
+        </Macopedia_Sentry>
+    </modules>
+</config>

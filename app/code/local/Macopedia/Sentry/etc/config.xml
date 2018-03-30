@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Macopedia_Sentry>
+            <version>1.0.0</version>
+        </Macopedia_Sentry>
+    </modules>
+    <global>
+        <blocks>
+            <macopedia_sentry>
+                <class>Macopedia_Sentry_Block</class>
+            </macopedia_sentry>
+        </blocks>
+        <helpers>
+            <macopedia_sentry>
+                <class>Macopedia_Sentry_Helper</class>
+            </macopedia_sentry>
+        </helpers>
+    </global>
+    <frontend>
+        <layout>
+            <updates>
+                <macopedia_sentry>
+                    <file>macopedia/sentry.xml</file>
+                </macopedia_sentry>
+            </updates>
+        </layout>
+    </frontend>
+    <default>
+        <macopedia_sentry>
+            <general>
+                <enable>0</enable>
+            </general>
+        </macopedia_sentry>
+    </default>
+</config>
