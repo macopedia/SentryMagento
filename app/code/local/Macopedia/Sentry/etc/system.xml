@@ -49,6 +49,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </env_type>
+                        <whitelist_urls>
+                            <label>Whitelist URLs</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Domains (comma separated) to allow errors logged from.  <a href="https://blog.sentry.io/2017/03/27/tips-for-reducing-javascript-error-noise">ref</a>]]></comment>
+                        </whitelist_urls>
                     </fields>
                 </general>
             </groups>

@@ -25,4 +25,13 @@ class Macopedia_Sentry_Block_Sentry extends Mage_Core_Block_Template
     {
         return Mage::getStoreConfig('macopedia_sentry/general/env_type');
     }
+
+    public function getOptions() {
+        $options = ['environment' => $this->getEnvType() ];
+        if(!empty($whiteListRaw = Mage::getStoreConfig('macopedia_sentry/general/whitelist_urls'))) {
+            $whiteLists = explode(",", $whiteListRaw);
+            $options['whitelistUrls'] = $whiteLists;
+        }
+        return json_encode($options);
+    }
 }

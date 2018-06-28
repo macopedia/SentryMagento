@@ -1,6 +1,4 @@
 <script src="https://cdn.ravenjs.com/3.24.0/raven.min.js" crossorigin="anonymous"></script>
 <script>
-    Raven.config('<?php echo $this->getAppUrl(); ?>', {
-        environment: '<?php echo $this->getEnvType(); ?>'
-    }).install();
+    Raven.config('<?php echo $this->getAppUrl(); ?>',<?php echo $this->getOptions(); ?>).install();
 </script>
