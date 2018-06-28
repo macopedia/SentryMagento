@@ -9,13 +9,5 @@
     {
       "name": "Macopedia"
     }
-  ],
-  "extra": {
-    "map" : [
-      ["app/etc/modules/Macopedia_Sentry.xml", "app/etc/modules/Macopedia_Sentry.xml"],
-      ["app/code/local/Macopedia/Sentry", "app/code/local/Macopedia/Sentry"],
-      ["app/design/adminhtml/base/default/template/macopedia/sentry", "app/design/adminhtml/default/default/template/macopedia/sentry"],
-      ["app/design/frontend/base/default/layout/macopedia/sentry.xml", "app/design/frontend/base/default/layout/macopedia/sentry.xml"]
-    ]
-  }
+  ]
 }
