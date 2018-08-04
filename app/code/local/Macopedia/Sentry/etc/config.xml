@@ -30,6 +30,7 @@
         <macopedia_sentry>
             <general>
                 <enable>0</enable>
+                <raven_js_url>https://cdn.ravenjs.com/3.26.4/raven.min.js</raven_js_url>
             </general>
         </macopedia_sentry>
     </default>

@@ -32,6 +32,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </enable>
+                        <raven_js_url>
+                            <label>URL to fetch Raven.js from</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Source URL for raven.js]]></comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </raven_js_url>
                         <app_url>
                             <label>Application URL</label>
                             <frontend_type>text</frontend_type>
@@ -56,8 +65,17 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <comment><![CDATA[Domains (comma separated) to allow errors logged from.  <a href="https://blog.sentry.io/2017/03/27/tips-for-reducing-javascript-error-noise">ref</a>]]></comment>
+                            <comment><![CDATA[Domains (One entry per line) to allow errors logged from.  <a href="https://blog.sentry.io/2017/03/27/tips-for-reducing-javascript-error-noise">ref</a>]]></comment>
                         </whitelist_urls>
+                        <ignore_textlist>
+                            <label>Ignore troublesome errors</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Ignore these errors. (One entry per line) <a href="https://blog.sentry.io/2017/03/27/tips-for-reducing-javascript-error-noise">ref</a>]]></comment>
+                        </ignore_textlist>
                     </fields>
                 </general>
             </groups>
