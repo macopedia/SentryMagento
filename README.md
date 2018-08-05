@@ -11,3 +11,7 @@ Magento 1.9 module for Sentry JavaScript errors tracking
 7. Enable module in Magento settings
 8. Clean Magento cache
 9. Try to produce error in JavaScript and check your project in Sentry account :)
+
+#Contribution
+
+Lucas van Staden (ProxiBlue) : Adjust code to allow more raven.js configuration options.
