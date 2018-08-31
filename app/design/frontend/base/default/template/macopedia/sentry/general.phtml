@@ -1,4 +1,18 @@
-<script src="https://cdn.ravenjs.com/3.24.0/raven.min.js" crossorigin="anonymous"></script>
+<script src="<?php echo $this->getRavenUrl(); ?>" crossorigin="anonymous"></script>
 <script>
     Raven.config('<?php echo $this->getAppUrl(); ?>',<?php echo $this->getOptions(); ?>).install();
+
+    // Refer to https://docs.sentry.io/clients/javascript/config/
+    Raven.setDataCallback(function(data) {
+        data.extra = {'User-agent': navigator.userAgent};
+        return data;
+    });
+
+    Raven.setBreadcrumbCallback(function(crumb) {
+        return crumb;
+    });
+
+    Raven.setShouldSendCallback(function(data) {
+        return true;
+    });
 </script>

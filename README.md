@@ -12,6 +12,7 @@ Magento 1.9 module for Sentry JavaScript errors tracking
 8. Clean Magento cache
 9. Try to produce error in JavaScript and check your project in Sentry account :)
 
+<<<<<<< HEAD
 #Reporting PHP Exceptions / System Log errors and PHP FATAL errors via patches
 
 You can patch the core magento files to report PHP errors.
@@ -54,7 +55,7 @@ It is thus possible to apply the patches via composer, and any updates to the co
   }
 ```
 
-# Contribute
+#Contribution
 
-* Original, js on module - Macopedia
-* Additional options for js, patches for php - Lucas van Staden (ProxiBlue)
+Lucas van Staden (ProxiBlue)    : Adjust code to allow more raven.js configuration options.
+                                : PHP patches for core PHP sentry logging

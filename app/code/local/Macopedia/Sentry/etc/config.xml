@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Macopedia_Sentry>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
         </Macopedia_Sentry>
     </modules>
     <global>
@@ -30,7 +30,24 @@
         <macopedia_sentry>
             <general>
                 <enable>0</enable>
+                <raven_js_url><![CDATA[https://cdn.ravenjs.com/3.26.4/raven.min.js]]></raven_js_url>
             </general>
+            <options>
+                <sampleRate>1.0</sampleRate>
+                <sanitizeKeys><![CDATA[password
+secret
+passwd
+api_key
+apikey
+access_token
+auth_token
+credentials
+mysql_pwd
+stripetoken
+creditcard
+cvv
+card[number]]]></sanitizeKeys>
+            </options>
         </macopedia_sentry>
     </default>
 </config>
