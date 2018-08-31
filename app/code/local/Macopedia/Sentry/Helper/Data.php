@@ -18,9 +18,10 @@ class Macopedia_Sentry_Helper_Data extends Mage_Core_Helper_Abstract
     public function reportMessage($message)
     {
         try {
-            $ignoreList = explode(PHP_EOL, Mage::getStoreConfig('macopedia_sentry/patch/ignore_strings'));
+            $ignoreList = explode("\r\n", Mage::getStoreConfig('macopedia_sentry/patch/ignore_strings'));
             if (is_array($ignoreList) && count($ignoreList) > 0) {
-                return $this->ignoreInString($message, $ignoreList);
+                $result = $this->ignoreInString($message, $ignoreList);
+                return $result;
             }
         } catch (Exception $e) {
             return true;
@@ -43,7 +44,7 @@ class Macopedia_Sentry_Helper_Data extends Mage_Core_Helper_Abstract
             }, array_values($ignores)
         );
         $regexp = '/' . implode('|', $quotedIgnoreArray) . '/i';
-        return (bool)preg_match($regexp, $message);
+        return !(bool)preg_match($regexp, $message);
     }
 
 }

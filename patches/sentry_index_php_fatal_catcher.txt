@@ -1,0 +1,22 @@
+diff --git a/docroot/index.php b/docroot/index.php
+index 0d9776c..1704559 100755
+--- a/docroot/index.php
++++ b/docroot/index.php
+@@ -80,4 +80,17 @@ $mageRunCode = isset($_SERVER['MAGE_RUN_CODE']) ? $_SERVER['MAGE_RUN_CODE'] : ''
+ /* Run store or run website */
+ $mageRunType = isset($_SERVER['MAGE_RUN_TYPE']) ? $_SERVER['MAGE_RUN_TYPE'] : 'store';
+ 
++try {
++    $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
++    if(!empty($DSN)) {
++        $sentryClient = new Raven_Client($DSN);
++        $error_handler = new Raven_ErrorHandler($sentryClient);
++        $error_handler->registerExceptionHandler();
++        $error_handler->registerErrorHandler();
++        $error_handler->registerShutdownFunction();
++    }
++} catch (Exception $e) {
++    // Ignore errors so that it doesn't crush the website when/if Sentry goes down.
++}
++
+ Mage::run($mageRunCode, $mageRunType);
