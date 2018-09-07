@@ -31,7 +31,7 @@ index b6f7c5495..7b82b95f9 100755
 +
 +        try {
 +            // send report to sentry!
-+            if(Mage::helper('macopedia_sentry')->reportMessage($e->getMessage())) {
++            if(Mage::helper('macopedia_sentry')->reportMessage($e->__toString())) {
 +                $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
 +                if (!empty($DSN)) {
 +                    $sentryClient = new Raven_Client($DSN);
