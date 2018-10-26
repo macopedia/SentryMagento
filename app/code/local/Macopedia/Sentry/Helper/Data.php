@@ -17,6 +17,7 @@ class Macopedia_Sentry_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function reportMessage($message)
     {
+        $message = substr($message, 0, 100);
         try {
             $ignoreList = explode("\r\n", Mage::getStoreConfig('macopedia_sentry/patch/ignore_strings'));
             if (is_array($ignoreList) && count($ignoreList) > 0) {
