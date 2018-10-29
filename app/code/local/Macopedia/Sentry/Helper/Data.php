@@ -17,8 +17,8 @@ class Macopedia_Sentry_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function reportMessage($message)
     {
-        $message = substr($message, 0, 100);
         try {
+            $message = substr(str_replace("\n",'',$message),0,255);
             $ignoreList = explode("\r\n", Mage::getStoreConfig('macopedia_sentry/patch/ignore_strings'));
             if (is_array($ignoreList) && count($ignoreList) > 0) {
                 $result = $this->ignoreInString($message, $ignoreList);
@@ -44,6 +44,7 @@ class Macopedia_Sentry_Helper_Data extends Mage_Core_Helper_Abstract
                 return preg_quote($ignore, '/');
             }, array_values($ignores)
         );
+        $quotedIgnoreArray = array_filter($quotedIgnoreArray);
         $regexp = '/' . implode('|', $quotedIgnoreArray) . '/i';
         return !(bool)preg_match($regexp, $message);
     }
