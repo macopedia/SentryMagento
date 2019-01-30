@@ -1,42 +1,40 @@
 diff --git a/docroot/app/Mage.php b/docroot/app/Mage.php
-index b6f7c5495..7b82b95f9 100755
+index ec30daef7..55ce9d7b8 100755
 --- a/docroot/app/Mage.php
 +++ b/docroot/app/Mage.php
-@@ -854,6 +854,19 @@ final class Mage
+@@ -847,6 +847,21 @@ final class Mage
  
              $message = addcslashes($message, '<?');
              $loggers[$file]->log($message, $level);
 +
-+            if($level <= Zend_Log::ERR && Mage::helper('macopedia_sentry')->reportMessage($message)) {
++
++            if($file != 'exception.log' && $level <= Zend_Log::ERR) {
 +                try {
 +                    // send report to sentry!
 +                    $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
 +                    if(!empty($DSN)) {
-+                        $sentryClient = new Raven_Client($DSN);
++                        $sentryClient = new Macopedia_Sentry_Model_Client($DSN);
 +                        $sentryClient->captureMessage($message, array('level' => $level));
 +                    }
 +                } catch (Exception $s) {
-+                    // Ignore errors so that it doesn't crush the website when/if Sentry goes down.
++                        // Ignore errors so that it doesn't crush the website when/if Sentry goes down.
 +                }
 +            }
++
          }
          catch (Exception $e) {
          }
-@@ -869,7 +882,22 @@ final class Mage
-         if (!self::getConfig()) {
+@@ -863,6 +878,18 @@ final class Mage
              return;
          }
-+
          $file = self::getStoreConfig('dev/log/exception_file');
 +
 +        try {
 +            // send report to sentry!
-+            if(Mage::helper('macopedia_sentry')->reportMessage($e->__toString())) {
-+                $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
-+                if (!empty($DSN)) {
-+                    $sentryClient = new Raven_Client($DSN);
++            $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
++            if (!empty($DSN)) {
++                    $sentryClient = new Macopedia_Sentry_Model_Client($DSN);
 +                    $sentryClient->captureException($e);
-+                }
 +            }
 +        } catch (Exception $s) {
 +            self::log("\n" . $s->__toString(), Zend_Log::ERR, $file);
@@ -45,7 +43,7 @@ index b6f7c5495..7b82b95f9 100755
          self::log("\n" . $e->__toString(), Zend_Log::ERR, $file);
      }
  
-@@ -902,6 +930,16 @@ final class Mage
+@@ -895,6 +922,17 @@ final class Mage
       */
      public static function printException(Exception $e, $extra = '')
      {
@@ -53,30 +51,32 @@ index b6f7c5495..7b82b95f9 100755
 +            // send report to sentry!
 +            $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
 +            if(!empty($DSN)) {
-+                $sentryClient = new Raven_Client($DSN);
-+                $sentryClient->captureException($e);
-+            }
++                    $sentryClient = new Macopedia_Sentry_Model_Client($DSN);
++                    $sentryClient->captureException($e);
++                }
 +        } catch (Exception $s) {
 +            // Ignore errors so that it doesn't crush the website when/if Sentry goes down.
 +        }
++
          if (self::$_isDeveloperMode) {
              print '<pre>';
  
 diff --git a/patches/sentry_exceptions.txt b/patches/sentry_exceptions.txt
-index 841256839..e69de29bb 100644
+index 3473bcc96..e69de29bb 100644
 --- a/patches/sentry_exceptions.txt
 +++ b/patches/sentry_exceptions.txt
-@@ -1,58 +0,0 @@
+@@ -1,64 +0,0 @@
 -diff --git a/docroot/app/Mage.php b/docroot/app/Mage.php
--index b6f7c5495..a9ad0a24c 100755
+-index 3335497f7..309c06605 100755
 ---- a/docroot/app/Mage.php
 -+++ b/docroot/app/Mage.php
--@@ -854,6 +854,19 @@ final class Mage
+-@@ -846,6 +846,21 @@ final class Mage
 - 
 -             $message = addcslashes($message, '<?');
 -             $loggers[$file]->log($message, $level);
 -+
--+            if($level <= Zend_Log::ERR) {
+-+
+-+            if($level <= Zend_Log::ERR && Mage::helper('macopedia_sentry')->reportMessage($message)) {
 -+                try {
 -+                    // send report to sentry!
 -+                    $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
@@ -85,30 +85,35 @@ index 841256839..e69de29bb 100644
 -+                        $sentryClient->captureMessage($message, array('level' => $level));
 -+                    }
 -+                } catch (Exception $s) {
--+                    // Ignore errors so that it doesn't crush the website when/if Sentry goes down.
+-+                        // Ignore errors so that it doesn't crush the website when/if Sentry goes down.
 -+                }
 -+            }
+-+
 -         }
 -         catch (Exception $e) {
 -         }
--@@ -869,6 +882,16 @@ final class Mage
--         if (!self::getConfig()) {
+-@@ -862,6 +877,20 @@ final class Mage
 -             return;
 -         }
+-         $file = self::getStoreConfig('dev/log/exception_file');
+-+
 -+        try {
 -+            // send report to sentry!
--+            $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
--+            if(!empty($DSN)) {
--+                $sentryClient = new Raven_Client($DSN);
--+                $sentryClient->captureException($e);
+-+            if(Mage::helper('macopedia_sentry')->reportMessage($e->__toString())) {
+-+                    $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
+-+                    if (!empty($DSN)) {
+-+                            $sentryClient = new Raven_Client($DSN);
+-+                            $sentryClient->captureException($e);
+-+                    }
 -+            }
 -+        } catch (Exception $s) {
--+            // Ignore errors so that it doesn't crush the website when/if Sentry goes down.
+-+            self::log("\n" . $s->__toString(), Zend_Log::ERR, $file);
 -+        }
--         $file = self::getStoreConfig('dev/log/exception_file');
+-+
 -         self::log("\n" . $e->__toString(), Zend_Log::ERR, $file);
 -     }
--@@ -902,6 +925,16 @@ final class Mage
+- 
+-@@ -894,6 +923,17 @@ final class Mage
 -      */
 -     public static function printException(Exception $e, $extra = '')
 -     {
@@ -116,12 +121,12 @@ index 841256839..e69de29bb 100644
 -+            // send report to sentry!
 -+            $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
 -+            if(!empty($DSN)) {
--+                $sentryClient = new Raven_Client($DSN);
--+                $sentryClient->captureException($e);
--+            }
+-+                    $sentryClient = new Raven_Client($DSN);
+-+                    $sentryClient->captureException($e);
+-+                }
 -+        } catch (Exception $s) {
 -+            // Ignore errors so that it doesn't crush the website when/if Sentry goes down.
 -+        }
+-+
 -         if (self::$_isDeveloperMode) {
 -             print '<pre>';
-- 
