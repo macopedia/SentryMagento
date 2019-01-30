@@ -9,7 +9,7 @@ index 0d9776c..1704559 100755
 +try {
 +    $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
 +    if(!empty($DSN)) {
-+        $sentryClient = new Raven_Client($DSN);
++        $sentryClient = new Macopedia_Sentry_Model_Client($DSN);
 +        $error_handler = new Raven_ErrorHandler($sentryClient);
 +        $error_handler->registerExceptionHandler();
 +        $error_handler->registerErrorHandler();

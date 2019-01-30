@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Macopedia_Sentry>
-            <version>1.2.0</version>
+            <version>1.3.0</version>
         </Macopedia_Sentry>
     </modules>
     <global>
@@ -16,6 +16,11 @@
                 <class>Macopedia_Sentry_Helper</class>
             </macopedia_sentry>
         </helpers>
+        <models>
+            <macopedia_sentry>
+                <class>Macopedia_Sentry_Model</class>
+            </macopedia_sentry>
+        </models>
     </global>
     <frontend>
         <layout>
