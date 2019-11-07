@@ -32,6 +32,15 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </enable>
+                        <raven_js_url>
+                            <label>URL to fetch Raven.js from</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Source URL for raven.js]]></comment>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </raven_js_url>
                         <app_url>
                             <label>Application URL</label>
                             <frontend_type>text</frontend_type>
@@ -41,16 +50,99 @@
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
                         </app_url>
-                        <env_type>
+                    </fields>
+                </general>
+                <options>
+                    <label>Raven.js Options</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>101</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <environment>
                             <label>Environment type</label>
                             <frontend_type>text</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </env_type>
+                        </environment>
+                        <whitelistUrls>
+                            <label>Whitelist URLs</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Domains (One entry per line) to allow errors logged from.  <a href="https://blog.sentry.io/2017/03/27/tips-for-reducing-javascript-error-noise">ref</a>]]></comment>
+                        </whitelistUrls>
+                        <ignoreErrors>
+                            <label>Ignore troublesome errors</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Ignore these errors. (One entry per line) <a href="https://blog.sentry.io/2017/03/27/tips-for-reducing-javascript-error-noise">ref</a>]]></comment>
+                        </ignoreErrors>
+                        <ignoreUrls>
+                            <label>Ignore these urls</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Ignore errors from these urls. (One entry per line) <a href="https://docs.sentry.io/clients/javascript/config/">ref</a>]]></comment>
+                        </ignoreUrls>
+                        <includePaths>
+                            <label>Urls that designate your code in stack trace</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Regex patterns to indicate which URLs are a part of your app in the stack trace. All other frames will appear collapsed inside Sentry to make it easier to discern between frames that happened in your code vs other code. It’d be suggested to add the current page URL, and the host for your CDN. (One entry per line) <a href="https://docs.sentry.io/clients/javascript/config/">ref</a>]]></comment>
+                        </includePaths>
+                        <sampleRate>
+                            <label>Sample Rate</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[A sampling rate to apply to events. A value of 0.0 will send no events, and a value of 1.0 will send all events (default). <a href="https://docs.sentry.io/clients/javascript/config/">ref</a>]]></comment>
+                        </sampleRate>
+                        <sanitizeKeys>
+                            <label>Sanitize Keys</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[strings or regex patterns representing keys that should be scrubbed from the payload sent to Sentry. (One entry per line) <a href="https://docs.sentry.io/learn/sensitive-data/">ref</a>]]></comment>
+                        </sanitizeKeys>
                     </fields>
-                </general>
+                </options>
+                <patch translate="label">
+                    <label>Patch Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>120</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <ignore_strings>
+                            <label>Ignore errors with these strings in patched Mage.php</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Ignore errors from these urls. (One entry per line). Partial textual matches will work.]]></comment>
+                        </ignore_strings>
+                    </fields>
+                </patch>
             </groups>
         </macopedia_sentry>
     </sections>

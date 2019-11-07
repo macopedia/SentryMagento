@@ -1,0 +1,23 @@
+diff --git a/docroot/index.php b/docroot/index.php
+index 4b1ac0777..7e889e7fc 100755
+--- a/docroot/index.php
++++ b/docroot/index.php
+@@ -75,4 +75,17 @@ $mageRunCode = isset($_SERVER['MAGE_RUN_CODE']) ? $_SERVER['MAGE_RUN_CODE'] : ''
+ /* Run store or run website */
+ $mageRunType = isset($_SERVER['MAGE_RUN_TYPE']) ? $_SERVER['MAGE_RUN_TYPE'] : 'store';
+ 
++try {
++    $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
++    if(!empty($DSN)) {
++        $sentryClient = new Macopedia_Sentry_Model_Client($DSN);
++        $error_handler = new Raven_ErrorHandler($sentryClient);
++        $error_handler->registerExceptionHandler();
++        $error_handler->registerErrorHandler();
++        $error_handler->registerShutdownFunction();
++    }
++} catch (Exception $e) {
++    // Ignore errors so that it doesn't crush the website when/if Sentry goes down.
++}
++
+ Mage::run($mageRunCode, $mageRunType);
+\ No newline at end of file

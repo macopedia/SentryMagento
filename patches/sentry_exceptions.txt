@@ -1,0 +1,62 @@
+diff --git a/docroot/app/Mage.php b/docroot/app/Mage.php
+index ec30daef7..55ce9d7b8 100755
+--- a/docroot/app/Mage.php
++++ b/docroot/app/Mage.php
+@@ -847,6 +847,21 @@ final class Mage
+ 
+             $message = addcslashes($message, '<?');
+             $loggers[$file]->log($message, $level);
++
++
++            if($file != 'exception.log' && $level <= Zend_Log::ERR) {
++                try {
++                    // send report to sentry!
++                    $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
++                    if(!empty($DSN)) {
++                        $sentryClient = new Macopedia_Sentry_Model_Client($DSN);
++                        $sentryClient->captureMessage($message, array('level' => $level));
++                    }
++                } catch (Exception $s) {
++                        // Ignore errors so that it doesn't crush the website when/if Sentry goes down.
++                }
++            }
++
+         }
+         catch (Exception $e) {
+         }
+@@ -863,6 +878,18 @@ final class Mage
+             return;
+         }
+         $file = self::getStoreConfig('dev/log/exception_file');
++
++        try {
++            // send report to sentry!
++            $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
++            if (!empty($DSN)) {
++                    $sentryClient = new Macopedia_Sentry_Model_Client($DSN);
++                    $sentryClient->captureException($e);
++            }
++        } catch (Exception $s) {
++            self::log("\n" . $s->__toString(), Zend_Log::ERR, $file);
++        }
++
+         self::log("\n" . $e->__toString(), Zend_Log::ERR, $file);
+     }
+ 
+@@ -895,6 +922,17 @@ final class Mage
+      */
+     public static function printException(Exception $e, $extra = '')
+     {
++        try {
++            // send report to sentry!
++            $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
++            if(!empty($DSN)) {
++                    $sentryClient = new Macopedia_Sentry_Model_Client($DSN);
++                    $sentryClient->captureException($e);
++                }
++        } catch (Exception $s) {
++            // Ignore errors so that it doesn't crush the website when/if Sentry goes down.
++        }
++
+         if (self::$_isDeveloperMode) {
+             print '<pre>';
