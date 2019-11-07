@@ -1,10 +1,10 @@
-diff --git a/docroot/index.php b/docroot/index.php
-index 4b1ac0777..7e889e7fc 100755
---- a/docroot/index.php
-+++ b/docroot/index.php
-@@ -75,4 +75,17 @@ $mageRunCode = isset($_SERVER['MAGE_RUN_CODE']) ? $_SERVER['MAGE_RUN_CODE'] : ''
- /* Run store or run website */
- $mageRunType = isset($_SERVER['MAGE_RUN_TYPE']) ? $_SERVER['MAGE_RUN_TYPE'] : 'store';
+diff --git a/docroot/cron.php b/docroot/cron.php
+index d43e199b7..590e12e6d 100755
+--- a/docroot/cron.php
++++ b/docroot/cron.php
+@@ -40,6 +40,20 @@ if (!Mage::isInstalled()) {
+ $_SERVER['SCRIPT_NAME'] = str_replace(basename(__FILE__), 'index.php', $_SERVER['SCRIPT_NAME']);
+ $_SERVER['SCRIPT_FILENAME'] = str_replace(basename(__FILE__), 'index.php', $_SERVER['SCRIPT_FILENAME']);
  
 +try {
 +    $DSN = Mage::getStoreConfig('macopedia_sentry/general/app_url');
@@ -19,5 +19,7 @@ index 4b1ac0777..7e889e7fc 100755
 +    // Ignore errors so that it doesn't crush the website when/if Sentry goes down.
 +}
 +
- Mage::run($mageRunCode, $mageRunType);
-\ No newline at end of file
++
+ try {
+     Mage::app('admin')->setUseSessionInUrl(false);
+ } catch (Exception $e) {
